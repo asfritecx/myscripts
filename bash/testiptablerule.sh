@@ -7,18 +7,6 @@ IPTABLEBIN="$(which iptables)"
 IPTABLERESTOREBIN="$(which iptables-restore)"
 IPTABLESAVEBIN="$(which iptables-save)"
 
-# Function Calling
-checkForRoot
-
-if [[ $1 != run ]]
-then
-	displayUsageInfo
-else
-        testiptrule $1
-fi
-
-exit
-
 function displayUsageInfo {
 
 cat << EOF
@@ -110,3 +98,16 @@ function checkForRoot {
 		exit
 	fi
 }
+
+
+# Function Calling
+checkForRoot
+
+if [[ $1 != run ]]
+then
+	displayUsageInfo
+else
+        testiptrule $1
+fi
+
+exit
