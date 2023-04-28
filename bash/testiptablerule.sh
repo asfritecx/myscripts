@@ -67,7 +67,6 @@ function checkForRespond {
 	echo ""
 	echo "Please Type y in 30 seconds: "
 	read -t 30 check
-	echo ""
 	if [ $? -eq 0  ] 
 	then
 		if [ $check = 'y' ]
