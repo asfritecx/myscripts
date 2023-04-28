@@ -38,6 +38,7 @@ function testiptrule {
 	# Get Test Rule from user
 	echo "Enter The Rule To Test: "
 	echo "Example: -I INPUT 1 -s 192.168.0.5 -j ACCEPT"
+	echo ""
 	read RULETOTEST
 	$IPTABLEBIN $RULETOTEST 2>/dev/null
 
@@ -63,15 +64,17 @@ function testiptrule {
 
 function checkForRespond {
 
+	echo ""
 	echo "Please Type y in 30 seconds: "
-	read -t 30 check
+	read -t 5 check
+	echo ""
 	if [ $? -eq 0  ] 
 	then
 		if [ $check = 'y' ]
 		then	
-			echo "Responses Received"
-			echo "Script Exiting..."
-			echo "Printing Current IP Table Rules"
+			echo "Response Received. Script Will Now Exit..."
+			echo "Printing Current IP Table Rules For Verification:"
+			echo ""
 			$IPTABLEBIN -nvL --line-numbers
 			exit
 		else
@@ -80,6 +83,7 @@ function checkForRespond {
 		fi
 	else
 		runBackupRule
+		exit
 	fi
 	
 }
@@ -88,6 +92,8 @@ function runBackupRule {
 
 	# Restore Rule From Backup location
 	$IPTABLERESTOREBIN $BACKUPPATH
+	echo " "
+	echo "IP Tables Restored From Backup As no response was received from the user"
 }
 
 function checkForRoot {
